@@ -19,7 +19,7 @@ const GET_PROJECTS = gql`
   }
 `;
 
-const Home: NextPage = ({ projects }: any) => {
+const Projects: NextPage = ({ projects }: any) => {
   return (
     <>
       <Head>
@@ -30,7 +30,16 @@ const Home: NextPage = ({ projects }: any) => {
       </Head>
 
       <main className="bg-red-400">
-        <h1>Samrood Ali</h1>
+        <h1>My portfolio</h1>
+        <p>Projects fetched from github</p>
+        {projects.map(({ node: project }: any) => (
+          <a
+            key={project.id}
+            href={`https://github.com/SamroodAli/${project.name}`}
+          >
+            <div className="p-4 bg-red-200 m-3">{project.name}</div>
+          </a>
+        ))}
       </main>
     </>
   );
@@ -48,4 +57,4 @@ export async function getServerSideProps() {
   };
 }
 
-export default Home;
+export default Projects;
