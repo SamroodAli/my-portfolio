@@ -11,7 +11,7 @@ const About: NextPage = () => {
         <title>Samrood Ali</title>
       </Head>
 
-      <main className="bg-red-400">
+      <main>
         <h1>Hello, I am Samrood Ali</h1>
       </main>
     </>

@@ -11,7 +11,7 @@ const Home: NextPage = ({ projects }: any) => {
         <title>Samrood Ali</title>
       </Head>
 
-      <main className="bg-red-400">
+      <main>
         <h1>Samrood Ali</h1>
       </main>
     </>

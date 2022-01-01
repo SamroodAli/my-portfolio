@@ -7,7 +7,11 @@ import client from "../lib/github-apollo";
 const GET_PROJECTS = gql`
   query {
     viewer {
-      repositories(first: 50, orderBy: { field: PUSHED_AT, direction: DESC }) {
+      repositories(
+        first: 50
+        privacy: PUBLIC
+        orderBy: { field: PUSHED_AT, direction: DESC }
+      ) {
         edges {
           node {
             id
@@ -29,7 +33,7 @@ const Projects: NextPage = ({ projects }: any) => {
         <title>Projects</title>
       </Head>
 
-      <main className="bg-red-400">
+      <main>
         <h1>My portfolio</h1>
         <p>Projects fetched from github</p>
         {projects.map(({ node: project }: any) => (
@@ -37,7 +41,7 @@ const Projects: NextPage = ({ projects }: any) => {
             key={project.id}
             href={`https://github.com/SamroodAli/${project.name}`}
           >
-            <div className="p-4 bg-red-200 m-3">{project.name}</div>
+            <div>{project.name}</div>
           </a>
         ))}
       </main>
