@@ -2,8 +2,9 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { gql } from "@apollo/client";
+import client from "../lib/github-apollo";
 
-const Home: NextPage = ({ projects }: any) => {
+const About: NextPage = ({ projects }: any) => {
   return (
     <>
       <Head>
@@ -14,10 +15,10 @@ const Home: NextPage = ({ projects }: any) => {
       </Head>
 
       <main className="bg-red-400">
-        <h1>Samrood Ali</h1>
+        <h1>Hello, I am Samrood Ali</h1>
       </main>
     </>
   );
 };
 
-export default Home;
+export default About;
