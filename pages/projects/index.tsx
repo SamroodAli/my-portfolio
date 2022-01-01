@@ -1,27 +1,8 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import client from "../../lib/github-apollo";
 import Link from "next/link";
-import { gql } from "@apollo/client";
-import client from "../lib/github-apollo";
-
-const GET_PROJECTS = gql`
-  query {
-    viewer {
-      repositories(
-        first: 50
-        privacy: PUBLIC
-        orderBy: { field: PUSHED_AT, direction: DESC }
-      ) {
-        edges {
-          node {
-            id
-            name
-          }
-        }
-      }
-    }
-  }
-`;
+import { queries } from "../../graphql";
 
 const Projects: NextPage = ({ projects }: any) => {
   return (
@@ -37,21 +18,32 @@ const Projects: NextPage = ({ projects }: any) => {
         <h1>My portfolio</h1>
         <p>Projects fetched from github</p>
         {projects.map(({ node: project }: any) => (
-          <a
+          <Link
             key={project.id}
-            href={`https://github.com/SamroodAli/${project.name}`}
+            href={{
+              pathname: `/projects/[name]`,
+              query: {
+                name: project.name,
+              },
+            }}
+            passHref
           >
-            <div>{project.name}</div>
-          </a>
+            <a
+              key={project.id}
+              href={`https://github.com/SamroodAli/${project.name}`}
+            >
+              <div>{project.name}</div>
+            </a>
+          </Link>
         ))}
       </main>
     </>
   );
 };
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const { data } = await client.query({
-    query: GET_PROJECTS,
+    query: queries.GET_PROJECTS,
   });
 
   return {
