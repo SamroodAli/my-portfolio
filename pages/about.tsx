@@ -1,10 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
-import { gql } from "@apollo/client";
-import client from "../lib/github-apollo";
 
-const About: NextPage = ({ projects }: any) => {
+const About: NextPage = () => {
   return (
     <>
       <Head>
