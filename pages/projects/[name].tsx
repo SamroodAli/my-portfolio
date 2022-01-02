@@ -38,6 +38,16 @@ const Project: NextPage = ({ project }: any) => {
             See codebase in vscode for web
           </a>
         </div>
+        <div>
+          <p>Clone project</p>
+          <code>{project.url}</code>
+        </div>
+        <iframe
+          id="theFrame"
+          src={project.url.replace("github.com", "github1s.com")}
+          style={{ width: "100%", height: "100vh" }}
+          frameBorder="0"
+        ></iframe>
       </main>
     </>
   );
