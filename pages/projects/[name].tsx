@@ -2,20 +2,7 @@ import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import client from "../../lib/github-apollo";
 import { queries } from "../../graphql";
-import Link from "next/link";
-
-const languageColors = {
-  TypeScript: { bg: "#2b7489", fg: "#ffffff" },
-  JavaScript: { bg: "#f1e05a", fg: "#000" },
-  HTML: { bg: "#F02F40", fg: "#ffffff" },
-  CSS: { bg: "#563d7c", fg: "#ffffff" },
-  Python: { bg: "#3572A5", fg: "#ffffff" },
-  Shell: { bg: "#89e051", fg: "#000000" },
-  Go: { bg: "#00ADD8", fg: "#ffffff" },
-  Dockerfile: { bg: "#384d54", fg: "#ffffff" },
-  Ruby: { bg: "#CC342D", fg: "#ffffff" },
-  SCSS: { bg: "#C76494", fg: "#ffffff" },
-};
+import { langaugeJoiner, languageColors } from "../../lib";
 
 const Project: NextPage = ({ project }: any) => {
   return (
@@ -49,9 +36,11 @@ const Project: NextPage = ({ project }: any) => {
         </div>
         <p>
           {project.description ||
-            `Description not available at the moment. 
-            Samrood has been alerted.
-            Thank you for visiting and your contribution `}
+            `${project.name
+              .split("-")
+              .join(" ")} project built with ${langaugeJoiner(
+              project.languages.nodes
+            )}`}
         </p>
         <p>{`created on ${new Date(project.createdAt).toDateString()}`}</p>
         <p>{`last updated on ${new Date(project.updatedAt).toDateString()}`}</p>
