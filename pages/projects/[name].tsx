@@ -13,7 +13,7 @@ const languageColors = {
   Shell: { bg: "#89e051", fg: "#000000" },
   Go: { bg: "#00ADD8", fg: "#ffffff" },
   Dockerfile: { bg: "#384d54", fg: "#ffffff" },
-  Ruby: { bg: "##CC342D", fg: "#ffffff" },
+  Ruby: { bg: "#CC342D", fg: "#ffffff" },
   SCSS: { bg: "#C76494", fg: "#ffffff" },
 };
 
@@ -82,12 +82,12 @@ const Project: NextPage = ({ project }: any) => {
             Copy
           </button>
         </div>
-        {/* <iframe
+        <iframe
           id="theFrame"
           src={project.url.replace("github.com", "github1s.com")}
           style={{ width: "100%", height: "100vh" }}
           frameBorder="0"
-        ></iframe> */}
+        ></iframe>
       </main>
     </>
   );
