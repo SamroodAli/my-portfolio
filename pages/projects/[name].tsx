@@ -4,6 +4,18 @@ import client from "../../lib/github-apollo";
 import { queries } from "../../graphql";
 import Link from "next/link";
 
+const languageColors = {
+  TypeScript: { bg: "#2b7489", fg: "#ffffff" },
+  JavaScript: { bg: "#f1e05a", fg: "#000" },
+  HTML: { bg: "#e34c26", fg: "#ffffff" },
+  CSS: { bg: "#563d7c", fg: "#ffffff" },
+  Python: { bg: "#3572A5", fg: "#ffffff" },
+  Shell: { bg: "#89e051", fg: "#000000" },
+  Go: { bg: "#00ADD8", fg: "#ffffff" },
+  Dockerfile: { bg: "#384d54", fg: "#ffffff" },
+  Ruby: { bg: "#701516", fg: "#ffffff" },
+};
+
 const Project: NextPage = ({ project }: any) => {
   return (
     <>
@@ -18,13 +30,30 @@ const Project: NextPage = ({ project }: any) => {
         <h1>My portfolio</h1>
         <p>Projects info </p>
         <p>{project.name}</p>
-        <p>{`created on ${new Date(project.createdAt).toDateString()}`}</p>
+        <div>
+          <p>Languages</p>
+
+          {project.languages.nodes.map((language: any) => (
+            <p
+              style={{
+                backgroundColor: languageColors[language.name]?.bg,
+                color: languageColors[language.name]?.fg,
+                display: "inline",
+              }}
+              key={language.name}
+            >
+              {language.name}
+            </p>
+          ))}
+        </div>
         <p>
           {project.description ||
             `Description not available at the moment. 
             Samrood has been alerted.
             Thank you for visiting and your contribution `}
         </p>
+        <p>{`created on ${new Date(project.createdAt).toDateString()}`}</p>
+        <p>{`last updated on ${new Date(project.updatedAt).toDateString()}`}</p>
         <div>
           <a href={project.url} target="_blank" rel="noreferrer">
             Visit project on github
