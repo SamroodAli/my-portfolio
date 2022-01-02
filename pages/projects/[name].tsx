@@ -2,6 +2,7 @@ import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import client from "../../lib/github-apollo";
 import { queries } from "../../graphql";
+import Link from "next/link";
 
 const Project: NextPage = ({ project }: any) => {
   return (
@@ -17,6 +18,26 @@ const Project: NextPage = ({ project }: any) => {
         <h1>My portfolio</h1>
         <p>Projects info </p>
         <p>{project.name}</p>
+        <p>
+          {project.description ||
+            `Description not available at the moment. 
+            Samrood has been alerted.
+            Thank you for visiting and your contribution `}
+        </p>
+        <div>
+          <a href={project.url} target="_blank" rel="noreferrer">
+            Visit project on github
+          </a>
+        </div>
+        <div>
+          <a
+            href={project.url.replace("github.com", "github1s.com")}
+            target="_blank"
+            rel="noreferrer"
+          >
+            See codebase in vscode for web
+          </a>
+        </div>
       </main>
     </>
   );

@@ -28,10 +28,7 @@ const Projects: NextPage = ({ projects }: any) => {
             }}
             passHref
           >
-            <a
-              key={project.id}
-              href={`https://github.com/SamroodAli/${project.name}`}
-            >
+            <a>
               <div>{project.name}</div>
             </a>
           </Link>
