@@ -18,6 +18,7 @@ const Project: NextPage = ({ project }: any) => {
         <h1>My portfolio</h1>
         <p>Projects info </p>
         <p>{project.name}</p>
+        <p>{`created on ${new Date(project.createdAt).toDateString()}`}</p>
         <p>
           {project.description ||
             `Description not available at the moment. 
@@ -40,14 +41,23 @@ const Project: NextPage = ({ project }: any) => {
         </div>
         <div>
           <p>Clone project</p>
-          <code>{project.url}</code>
+          <code>{`$ git clone ${project.url}.git`}</code>
+          <button
+            className="px-3"
+            type="button"
+            onClick={() => {
+              navigator.clipboard.writeText(`git clone ${project.url}.git`);
+            }}
+          >
+            Copy
+          </button>
         </div>
-        <iframe
+        {/* <iframe
           id="theFrame"
           src={project.url.replace("github.com", "github1s.com")}
           style={{ width: "100%", height: "100vh" }}
           frameBorder="0"
-        ></iframe>
+        ></iframe> */}
       </main>
     </>
   );

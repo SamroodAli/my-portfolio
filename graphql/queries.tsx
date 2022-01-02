@@ -9,6 +9,12 @@ export const GET_PROJECT = gql`
         name
         description
         url
+        createdAt
+        languages(first: 20) {
+          nodes {
+            name
+          }
+        }
       }
     }
   }
