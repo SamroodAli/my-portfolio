@@ -11,7 +11,7 @@ const Project: NextPage = ({ project }: any) => {
         <title>Create Next App</title>
         <meta name="description" content="Codezilla appointments home page" />
         <link rel="icon" href="/favicon.ico" />
-        <title>Projects</title>
+        <title>{project.name}</title>
       </Head>
 
       <main>

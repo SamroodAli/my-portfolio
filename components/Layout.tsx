@@ -18,6 +18,9 @@ const Layout: React.FC<props> = ({ children }) => {
           <Link href="/projects">
             <a>Projects</a>
           </Link>
+          <Link href="/scratchpad">
+            <a>Code scratchpad</a>
+          </Link>
         </nav>
       </header>
       <main>{children}</main>
