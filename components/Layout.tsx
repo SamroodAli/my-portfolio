@@ -6,8 +6,8 @@ interface props {
 
 const Layout: React.FC<props> = ({ children }) => {
   return (
-    <div>
-      <header>
+    <div className="h-screen">
+      <header className="bg-secondary h-5vh">
         <nav>
           <Link href="/">
             <a>Home</a>
@@ -18,12 +18,9 @@ const Layout: React.FC<props> = ({ children }) => {
           <Link href="/projects">
             <a>Projects</a>
           </Link>
-          <Link href="/scratchpad">
-            <a>Code scratchpad</a>
-          </Link>
         </nav>
       </header>
-      <main>{children}</main>
+      <main className="bg-primary h-95vh">{children}</main>
     </div>
   );
 };
