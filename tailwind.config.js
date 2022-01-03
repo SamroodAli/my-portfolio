@@ -7,7 +7,10 @@ module.exports = {
     extend: {
       height: (theme) => ({
         "5vh": "5vh",
+        "10vh": "10vh",
+        "80vh": "80vh",
         "95vh": "95vh",
+        "90vh": "90vh",
         "screen/5": "calc(100vh / 5)",
       }),
       colors: {

@@ -3,6 +3,7 @@ import Head from "next/head";
 import client from "../../lib/github-apollo";
 import Link from "next/link";
 import { queries } from "../../graphql";
+import { useEffect, useRef } from "react";
 
 const Projects: NextPage = ({ projects }: any) => {
   return (
@@ -14,26 +15,28 @@ const Projects: NextPage = ({ projects }: any) => {
         <title>Projects</title>
       </Head>
 
-      <main>
-        <h1>My portfolio</h1>
-        <p>Projects fetched from github</p>
-        {projects.map(({ node: project }: any) => (
-          <Link
-            key={project.id}
-            href={{
-              pathname: `/projects/[name]`,
-              query: {
-                name: project.name,
-              },
-            }}
-            passHref
-          >
-            <a>
-              <div>{project.name}</div>
-            </a>
-          </Link>
-        ))}
-      </main>
+      <div>
+        <div className="h-10vh">
+          <h1>My portfolio</h1>
+          <p>Projects fetched from github</p>
+        </div>
+        <div className="overflow-auto h-80vh grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+          {projects.map(({ node: project }: any) => (
+            <Link
+              key={project.id}
+              href={{
+                pathname: `/projects/[name]`,
+                query: {
+                  name: project.name,
+                },
+              }}
+              passHref
+            >
+              <a className="text-white font-mono text-lg">{project.name}</a>
+            </Link>
+          ))}
+        </div>
+      </div>
     </>
   );
 };
