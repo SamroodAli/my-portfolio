@@ -6,7 +6,7 @@ const About: NextPage = () => {
     <>
       <Head>
         <title>Create Next App</title>
-        <meta name="description" content="Codezilla appointments home page" />
+        <meta name="description" content="About Samrood Ali" />
         <link rel="icon" href="/favicon.ico" />
         <title>Samrood Ali</title>
       </Head>

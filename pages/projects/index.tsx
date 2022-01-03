@@ -9,7 +9,7 @@ const Projects: NextPage = ({ projects }: any) => {
     <>
       <Head>
         <title>Create Next App</title>
-        <meta name="description" content="Codezilla appointments home page" />
+        <meta name="description" content="Samrood Ali projects" />
         <link rel="icon" href="/favicon.ico" />
         <title>Projects</title>
       </Head>

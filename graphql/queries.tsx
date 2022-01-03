@@ -31,6 +31,11 @@ export const GET_PROJECTS = gql`
         ownerAffiliations: OWNER
         orderBy: { field: PUSHED_AT, direction: DESC }
       ) {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+        }
         edges {
           node {
             id
