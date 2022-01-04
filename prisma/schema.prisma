@@ -10,7 +10,47 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id       String @id @default(cuid())
-  username String
+enum languages {
+  JavaScript
+  Ruby
+  Python
+  Html
+  CSS
+  TypeScript
+  Shell
+  Dockerfile
+}
+
+enum technologies {
+  React
+  NextJs
+  NodeJs
+  Express
+  GraphQL
+  Library
+  postgresql
+  FullStack
+  Serverless
+  Mongodb
+}
+
+model Project {
+  id           String         @id @default(cuid())
+  name         String         @unique
+  description  String
+  url          String
+  createdAt    String
+  updatedAt    String
+  languages    languages[]
+  technologies technologies[]
+  categories   Category[]
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  description String
+  createdAt   String
+  updatedAt   String
+  Project     Project[]
 }
