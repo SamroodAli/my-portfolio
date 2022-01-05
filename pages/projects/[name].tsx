@@ -3,11 +3,11 @@ import Head from "next/head";
 import client from "../../lib/apollo-client";
 import { queries } from "../../graphql";
 import { langaugeJoiner, languageColors } from "../../lib";
-import { languages, Project } from "@prisma/client";
-import { useRef, useState } from "react";
+import { useState } from "react";
+import { Project } from "@prisma/client";
 
 const Project: NextPage<{ project: Project }> = ({ project }) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   console.log(open);
   return (
     <>
@@ -27,7 +27,6 @@ const Project: NextPage<{ project: Project }> = ({ project }) => {
         <p>{project.name}</p>
         <div>
           <p>Languages</p>
-
           {project.languages.map((language) => (
             <p
               style={{
@@ -39,6 +38,12 @@ const Project: NextPage<{ project: Project }> = ({ project }) => {
             >
               {language}
             </p>
+          ))}
+        </div>
+        <div>
+          <p>Technologies used</p>
+          {project.technologies.map((technology) => (
+            <p key={technology}>{technology}</p>
           ))}
         </div>
         <p>
@@ -80,34 +85,31 @@ const Project: NextPage<{ project: Project }> = ({ project }) => {
           </button>
         </div>
 
-        <div className="mx-auto ">
+        <div
+          className="mx-auto relative"
+          style={{
+            width: open ? "100%" : "90%",
+            height: "100vh",
+            position: open ? "absolute" : "relative",
+            top: open ? "0" : undefined,
+            bottom: open ? "0" : undefined,
+            left: open ? "0" : undefined,
+            right: open ? "0" : undefined,
+          }}
+        >
           <iframe
             id="theFrame"
+            style={{ height: "100%", width: "100%" }}
             src={project.url.replace("github.com", "github1s.com")}
             className=" mx-auto"
             frameBorder="0"
-            style={{
-              width: open ? "100%" : "90%",
-              height: "100vh",
-              position: open ? "absolute" : "relative",
-              top: open ? "0" : undefined,
-              bottom: open ? "0" : undefined,
-              left: open ? "0" : undefined,
-              right: open ? "0" : undefined,
-            }}
           />
-          <div className="absolute bottom-12 right-12 ">
+          <div className="absolute bottom-12 right-12">
             <button
               className="p-4 bg-blue-900 text-white rounded-full  hover:animate-none"
-              onClick={(prev) =>
-                window.scrollTo({ top: 0, behavior: "smooth" })
-              }
-            >
-              Scroll up
-            </button>
-            <button
-              className="p-4 bg-blue-900 text-white rounded-full  hover:animate-none"
-              onClick={() => setOpen((prev) => !prev)}
+              onClick={() => {
+                setOpen((prev) => !prev);
+              }}
             >
               {open ? "Exit" : "Fullscreen"}
             </button>
@@ -134,7 +136,7 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { data }: { data: Project } = await client.query({
+  const { data } = await client.query({
     query: queries.GET_PROJECT,
     variables: {
       name: params?.name,

@@ -61,7 +61,11 @@ async function main() {
   data.viewer.repositories.nodes.forEach(async (node: any) => {
     await prisma.project.upsert({
       where: { name: node.name },
-      update: {},
+      update: {
+        description: node.description || "",
+        url: node.url,
+        updatedAt: node.updatedAt,
+      },
       create: {
         id: node.id,
         name: node.name,
