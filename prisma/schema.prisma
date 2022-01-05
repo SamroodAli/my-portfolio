@@ -46,9 +46,17 @@ model Project {
   categories   Category[]
 }
 
+enum category {
+  Frontend
+  Backend
+  FullStack
+  Serverless
+  DevOps
+}
+
 model Category {
-  id          String    @id @default(cuid())
-  name        String    @unique
+  id          String     @id @default(cuid())
+  name        category[] @unique
   description String
   createdAt   String
   updatedAt   String
