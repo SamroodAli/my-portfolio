@@ -21,7 +21,7 @@ const Project: NextPage<{ project: Project }> = ({ project }) => {
         <title>{project.name}</title>
       </Head>
 
-      <main>
+      <div>
         <h1>My portfolio</h1>
         <p>Projects info </p>
         <p>{project.name}</p>
@@ -80,17 +80,22 @@ const Project: NextPage<{ project: Project }> = ({ project }) => {
           </button>
         </div>
 
-        <div
-          className="relative mx-auto"
-          style={{ width: open ? "100%" : "90%" }}
-        >
+        <div className="mx-auto ">
           <iframe
             id="theFrame"
             src={project.url.replace("github.com", "github1s.com")}
-            style={{ width: "100%", height: "100vh" }}
-            className="mt-12 mx-auto"
+            className=" mx-auto"
             frameBorder="0"
-          ></iframe>
+            style={{
+              width: open ? "100%" : "90%",
+              height: "100vh",
+              position: open ? "absolute" : "relative",
+              top: open ? "0" : undefined,
+              bottom: open ? "0" : undefined,
+              left: open ? "0" : undefined,
+              right: open ? "0" : undefined,
+            }}
+          />
           <div className="absolute bottom-12 right-12 ">
             <button
               className="p-4 bg-blue-900 text-white rounded-full  hover:animate-none"
@@ -108,7 +113,7 @@ const Project: NextPage<{ project: Project }> = ({ project }) => {
             </button>
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 };

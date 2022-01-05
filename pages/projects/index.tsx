@@ -4,13 +4,8 @@ import client from "../../lib/apollo-client";
 import Link from "next/link";
 import { queries } from "../../graphql";
 import { Project } from "@prisma/client";
-import SelectSearch from "react-select-search";
-import { useState } from "react";
 
 const Projects: NextPage<{ projects: Project[] }> = ({ projects }) => {
-  const options = projects.map(({ name }) => ({ name, value: name }));
-  const [search, setSearch] = useState("");
-
   return (
     <>
       <Head>
@@ -24,13 +19,6 @@ const Projects: NextPage<{ projects: Project[] }> = ({ projects }) => {
         <div className="h-10vh">
           <h1>My portfolio</h1>
           <p>Projects fetched from github</p>
-        </div>
-        <div>
-          <SelectSearch
-            options={options}
-            onChange={console.log}
-            placeholder="Select a project"
-          />
         </div>
         <div className="overflow-auto h-80vh grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {projects.map((project: Project) => (
