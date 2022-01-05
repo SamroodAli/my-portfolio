@@ -13,6 +13,22 @@ const Home: NextPage = ({ projects }: any) => {
 
       <main>
         <h1>Samrood Ali</h1>
+        <p>A passionate Software engineer Full Stack web developer</p>
+        <div>
+          <h2>Categories</h2>
+          <div>
+            <h3>Frontend</h3>
+          </div>
+          <div>
+            <h3>Backend</h3>
+          </div>
+          <div>
+            <h3>Server</h3>
+          </div>
+          <div>
+            <h3>Tools</h3>
+          </div>
+        </div>
       </main>
     </>
   );
