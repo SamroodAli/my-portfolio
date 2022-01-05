@@ -6,6 +6,7 @@ import { langaugeJoiner, languageColors } from "../../lib";
 import { languages, Project } from "@prisma/client";
 
 const Project: NextPage<{ project: Project }> = ({ project }) => {
+  console.log(project.languages);
   return (
     <>
       <Head>
@@ -25,7 +26,7 @@ const Project: NextPage<{ project: Project }> = ({ project }) => {
         <div>
           <p>Languages</p>
 
-          {project.languages.map((language: languages) => (
+          {project.languages.map((language) => (
             <p
               style={{
                 backgroundColor: languageColors[language]?.bg,
@@ -42,9 +43,10 @@ const Project: NextPage<{ project: Project }> = ({ project }) => {
           {project.description ||
             `${project.name
               .split("-")
-              .join(" ")} project built with ${langaugeJoiner(
-              project.languages
-            )}`}
+              .join(" ")} project built with ${langaugeJoiner([
+              ...project.languages,
+              ...project.technologies,
+            ])}`}
         </p>
         <p>{`created on ${new Date(project.createdAt).toDateString()}`}</p>
         <p>{`last updated on ${new Date(project.updatedAt).toDateString()}`}</p>
@@ -108,11 +110,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       name: params?.name,
     },
   });
-
-  console.log(data);
   return {
     props: {
-      project: data,
+      project: data.project,
     },
   };
 };

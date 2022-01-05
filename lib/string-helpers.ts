@@ -1,6 +1,6 @@
 import { languages } from "@prisma/client";
 
-export const langaugeJoiner = (languages: languages[]) => {
+export const langaugeJoiner = (languages: string[]) => {
   return languages.reduce((string, language, index) => {
     if (index === 0) {
       return (string += language);
