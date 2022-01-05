@@ -1,6 +1,5 @@
 import { extendType, nonNull, stringArg } from "nexus";
 import { Project } from "./project";
-import { prisma } from "../../lib/prisma";
 
 export const RootQuery = extendType({
   type: "Query",

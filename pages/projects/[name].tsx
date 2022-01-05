@@ -110,7 +110,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: {
-      project: data.viewer.repository,
+      project: data,
     },
   };
 };
