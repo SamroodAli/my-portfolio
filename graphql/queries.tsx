@@ -48,7 +48,7 @@ export const GET_PROJECTS_FROM_GITHUB = gql`
 `;
 
 export const GET_PROJECTS = gql`
-  query fetchProjects($name: String!) {
+  query fetchProjects {
     projects {
       id
       name
@@ -60,19 +60,13 @@ export const GET_PROJECT = gql`
   query fetchProject($name: String!) {
     project(name: $name) {
       id
-      repository(name: $name) {
-        id
-        name
-        description
-        url
-        createdAt
-        updatedAt
-        languages(first: 20) {
-          nodes {
-            name
-          }
-        }
-      }
+      name
+      description
+      url
+      createdAt
+      updatedAt
+      languages
+      technologies
     }
   }
 `;

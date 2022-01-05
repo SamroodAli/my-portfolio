@@ -3,8 +3,9 @@ import Head from "next/head";
 import client from "../../lib/apollo-client";
 import { queries } from "../../graphql";
 import { langaugeJoiner, languageColors } from "../../lib";
+import { languages, Project } from "@prisma/client";
 
-const Project: NextPage = ({ project }: any) => {
+const Project: NextPage<{ project: Project }> = ({ project }) => {
   return (
     <>
       <Head>
@@ -24,16 +25,16 @@ const Project: NextPage = ({ project }: any) => {
         <div>
           <p>Languages</p>
 
-          {project.languages.nodes.map((language: any) => (
+          {project.languages.map((language: languages) => (
             <p
               style={{
-                backgroundColor: languageColors[language.name]?.bg,
-                color: languageColors[language.name]?.fg,
+                backgroundColor: languageColors[language]?.bg,
+                color: languageColors[language]?.fg,
                 display: "inline",
               }}
-              key={language.name}
+              key={language}
             >
-              {language.name}
+              {language}
             </p>
           ))}
         </div>
@@ -42,7 +43,7 @@ const Project: NextPage = ({ project }: any) => {
             `${project.name
               .split("-")
               .join(" ")} project built with ${langaugeJoiner(
-              project.languages.nodes
+              project.languages
             )}`}
         </p>
         <p>{`created on ${new Date(project.createdAt).toDateString()}`}</p>
@@ -92,7 +93,7 @@ export async function getStaticPaths() {
 
   return {
     fallback: false,
-    paths: data.viewer.repositories.edges.map(({ node: project }: any) => ({
+    paths: data.projects.map((project: Project) => ({
       params: {
         name: project.name,
       },
@@ -101,13 +102,14 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { data } = await client.query({
+  const { data }: { data: Project } = await client.query({
     query: queries.GET_PROJECT,
     variables: {
       name: params?.name,
     },
   });
 
+  console.log(data);
   return {
     props: {
       project: data,
