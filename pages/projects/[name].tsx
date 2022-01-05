@@ -4,9 +4,11 @@ import client from "../../lib/apollo-client";
 import { queries } from "../../graphql";
 import { langaugeJoiner, languageColors } from "../../lib";
 import { languages, Project } from "@prisma/client";
+import { useRef, useState } from "react";
 
 const Project: NextPage<{ project: Project }> = ({ project }) => {
-  console.log(project.languages);
+  const [open, setOpen] = useState(true);
+  console.log(open);
   return (
     <>
       <Head>
@@ -77,12 +79,35 @@ const Project: NextPage<{ project: Project }> = ({ project }) => {
             Copy
           </button>
         </div>
-        <iframe
-          id="theFrame"
-          src={project.url.replace("github.com", "github1s.com")}
-          style={{ width: "100%", height: "100vh" }}
-          frameBorder="0"
-        ></iframe>
+
+        <div
+          className="relative mx-auto"
+          style={{ width: open ? "100%" : "90%" }}
+        >
+          <iframe
+            id="theFrame"
+            src={project.url.replace("github.com", "github1s.com")}
+            style={{ width: "100%", height: "100vh" }}
+            className="mt-12 mx-auto"
+            frameBorder="0"
+          ></iframe>
+          <div className="absolute bottom-12 right-12 ">
+            <button
+              className="p-4 bg-blue-900 text-white rounded-full  hover:animate-none"
+              onClick={(prev) =>
+                window.scrollTo({ top: 0, behavior: "smooth" })
+              }
+            >
+              Scroll up
+            </button>
+            <button
+              className="p-4 bg-blue-900 text-white rounded-full  hover:animate-none"
+              onClick={() => setOpen((prev) => !prev)}
+            >
+              {open ? "Exit" : "Fullscreen"}
+            </button>
+          </div>
+        </div>
       </main>
     </>
   );
