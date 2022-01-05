@@ -15,6 +15,12 @@ type Project {
 }
 
 type Query {
+  """One of Samrood's project fetched from github"""
+  project(
+    """The name of the project"""
+    name: String!
+  ): Project
+
   """List of projects fetched from github"""
   projects: [Project!]!
 }

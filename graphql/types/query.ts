@@ -1,4 +1,4 @@
-import { extendType } from "nexus";
+import { extendType, nonNull, stringArg } from "nexus";
 import { Project } from "./project";
 import { prisma } from "../../lib/prisma";
 
@@ -8,8 +8,23 @@ export const RootQuery = extendType({
     t.nonNull.list.nonNull.field("projects", {
       type: Project,
       description: "List of projects fetched from github",
-      resolve: async () => {
-        return await prisma.project.findMany({});
+      resolve: async (_, __, { prisma }) => {
+        return prisma.project.findMany({});
+      },
+    });
+
+    t.field("project", {
+      type: Project,
+      description: "One of Samrood's project fetched from github",
+      args: {
+        name: nonNull(stringArg({ description: "The name of the project" })),
+      },
+      resolve: async (_, { name }, { prisma }) => {
+        return await prisma.project.findUnique({
+          where: {
+            name,
+          },
+        });
       },
     });
   },
