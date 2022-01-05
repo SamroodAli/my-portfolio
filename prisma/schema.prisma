@@ -35,6 +35,8 @@ enum technologies {
   FullStack
   Serverless
   Mongodb
+  Docker
+  Kubernetes
 }
 
 model Project {

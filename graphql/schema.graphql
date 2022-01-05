@@ -2,6 +2,52 @@
 ### Do not make changes to this file directly
 
 
+"""One of Samrood's project fetched from github"""
+type Project {
+  createdAt: String!
+  description: String!
+  id: ID!
+  languages: [languages!]!
+  name: String!
+  technologies: [technologies!]!
+  updatedAt: String!
+  url: String!
+}
+
 type Query {
-  hello: String
+  """List of projects fetched from github"""
+  projects: [Project!]!
+}
+
+"""
+The programming languages that were used in the project fetched from github
+"""
+enum languages {
+  CSS
+  CoffeeScript
+  Dockerfile
+  HTML
+  JavaScript
+  Python
+  Ruby
+  SCSS
+  Sass
+  Shell
+  TypeScript
+}
+
+"""The technologies used in the project"""
+enum technologies {
+  Docker
+  Express
+  FullStack
+  GraphQL
+  Kubernetes
+  Library
+  Mongodb
+  NextJs
+  NodeJs
+  React
+  Serverless
+  postgresql
 }
