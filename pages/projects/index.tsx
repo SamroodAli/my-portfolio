@@ -1,11 +1,11 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import client from "../../lib/github-apollo";
+import client from "../../lib/apollo-client";
 import Link from "next/link";
 import { queries } from "../../graphql";
-import { useEffect, useRef } from "react";
+import { Project } from "@prisma/client";
 
-const Projects: NextPage = ({ projects }: any) => {
+const Projects: NextPage<{ projects: Project[] }> = ({ projects }) => {
   return (
     <>
       <Head>
@@ -21,7 +21,7 @@ const Projects: NextPage = ({ projects }: any) => {
           <p>Projects fetched from github</p>
         </div>
         <div className="overflow-auto h-80vh grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {projects.map(({ node: project }: any) => (
+          {projects.map((project: Project) => (
             <Link
               key={project.id}
               href={{
@@ -48,7 +48,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      projects: data.viewer.repositories.edges,
+      projects: data.projects,
     },
   };
 }

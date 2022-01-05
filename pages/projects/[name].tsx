@@ -1,6 +1,6 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
-import client from "../../lib/github-apollo";
+import client from "../../lib/apollo-client";
 import { queries } from "../../graphql";
 import { langaugeJoiner, languageColors } from "../../lib";
 

@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const GET_PROJECT = gql`
+export const GET_PROJECT_FROM_GITHUB = gql`
   query fetchRepository($name: String!) {
     viewer {
       id
@@ -21,7 +21,7 @@ export const GET_PROJECT = gql`
   }
 `;
 
-export const GET_PROJECTS = gql`
+export const GET_PROJECTS_FROM_GITHUB = gql`
   query fetchProjectNames {
     viewer {
       id
@@ -43,6 +43,14 @@ export const GET_PROJECTS = gql`
           }
         }
       }
+    }
+  }
+`;
+
+export const GET_PROJECTS = gql`
+  query fetchProjects {
+    projects {
+      name
     }
   }
 `;
