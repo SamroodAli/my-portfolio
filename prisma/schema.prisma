@@ -14,8 +14,11 @@ enum languages {
   JavaScript
   Ruby
   Python
-  Html
+  HTML
   CSS
+  SCSS
+  Sass
+  CoffeeScript
   TypeScript
   Shell
   Dockerfile

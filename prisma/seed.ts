@@ -1,6 +1,9 @@
 import { GraphQLClient, gql } from "graphql-request";
+import { prisma } from "../lib/prisma";
 
 async function main() {
+  await prisma.project.deleteMany({});
+
   const endpoint = "https://api.github.com/graphql";
 
   const graphQLClient = new GraphQLClient(endpoint, {
@@ -19,18 +22,16 @@ async function main() {
           ownerAffiliations: OWNER
           orderBy: { field: PUSHED_AT, direction: DESC }
         ) {
-          edges {
-            node {
-              id
-              name
-              description
-              url
-              createdAt
-              updatedAt
-              languages(first: 20) {
-                nodes {
-                  name
-                }
+          nodes {
+            id
+            name
+            description
+            url
+            createdAt
+            updatedAt
+            languages(first: 20) {
+              nodes {
+                name
               }
             }
           }
@@ -40,7 +41,19 @@ async function main() {
   `;
 
   const data = await graphQLClient.request(query);
-  console.log(JSON.stringify(data, undefined, 2));
+  data.viewer.repositories.nodes.forEach(async (node: any) => {
+    await prisma.project.create({
+      data: {
+        id: node.id,
+        name: node.name,
+        description: node.description || "",
+        url: node.url,
+        createdAt: node.createdAt,
+        updatedAt: node.updatedAt,
+        languages: node.languages.nodes.map((language: any) => language.name),
+      },
+    });
+  });
 }
 
-main().catch((error) => console.error(error));
+main().catch(console.error);
