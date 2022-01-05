@@ -4,6 +4,23 @@ import { prisma } from "../lib/prisma";
 async function main() {
   await prisma.project.deleteMany({});
 
+  const categories = [
+    { name: "Front-end", description: "All my front-end projects" },
+    { name: "Back-end", description: "All my back-end projects" },
+    { name: "FullStack", description: "All my full-stack projects" },
+    { name: "DevOps", description: "All my devops projects" },
+    { name: "Tools", description: "All the tools or libraries I have built" },
+  ];
+
+  categories.forEach(
+    async (category) =>
+      await prisma.category.upsert({
+        where: { name: category.name },
+        update: {},
+        create: { name: category.name, description: category.description },
+      })
+  );
+
   const endpoint = "https://api.github.com/graphql";
 
   const graphQLClient = new GraphQLClient(endpoint, {
@@ -42,8 +59,10 @@ async function main() {
 
   const data = await graphQLClient.request(query);
   data.viewer.repositories.nodes.forEach(async (node: any) => {
-    await prisma.project.create({
-      data: {
+    await prisma.project.upsert({
+      where: { name: node.name },
+      update: {},
+      create: {
         id: node.id,
         name: node.name,
         description: node.description || "",
