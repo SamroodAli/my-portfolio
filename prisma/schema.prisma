@@ -57,5 +57,5 @@ model Category {
   description String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  Project     Project[]
+  projects    Project[]
 }
