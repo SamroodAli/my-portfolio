@@ -11,15 +11,14 @@ export const Category = objectType({
     t.string("updatedAt");
     t.nonNull.list.nonNull.field("products", {
       type: Project,
-      resolve: async ({ id }, args, { prisma }) => {
-        return await prisma.category.findUnique({
-          where: {
-            id,
-          },
-          include: {
-            Project: true,
-          },
-        });
+      resolve: async ({ id }, _, { prisma }) => {
+        return await prisma.category
+          .findUnique({
+            where: {
+              id,
+            },
+          })
+          .projects();
       },
     });
   },
