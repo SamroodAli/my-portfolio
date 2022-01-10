@@ -1,7 +1,10 @@
+import { Category } from "@prisma/client";
 import type { NextPage } from "next";
 import Head from "next/head";
+import { getEnabledCategories } from "trace_events";
+import { prisma } from "../lib/prisma";
 
-const Home: NextPage = ({ projects }: any) => {
+const Home: NextPage<{ categories: Category[] }> = ({ categories }) => {
   return (
     <>
       <Head>
@@ -14,24 +17,24 @@ const Home: NextPage = ({ projects }: any) => {
       <main>
         <h1>Samrood Ali</h1>
         <p>A passionate Software engineer Full Stack web developer</p>
-        <div>
-          <h2>Categories</h2>
-          <div>
-            <h3>Frontend</h3>
+        {categories.map((category) => (
+          <div key={category.id}>
+            <h2>{category.name}</h2>
           </div>
-          <div>
-            <h3>Backend</h3>
-          </div>
-          <div>
-            <h3>Server</h3>
-          </div>
-          <div>
-            <h3>Tools</h3>
-          </div>
-        </div>
+        ))}
       </main>
     </>
   );
+};
+
+export const getStaticProps = async () => {
+  const categories = await prisma.category.findMany({});
+
+  return {
+    props: {
+      categories,
+    },
+  };
 };
 
 export default Home;
