@@ -1,11 +1,12 @@
 import { extendType, nonNull, stringArg } from "nexus";
 import { Project } from "./project";
+import { Category } from "./category";
 
 export const RootQuery = extendType({
   type: "Query",
   definition(t) {
     t.nonNull.list.nonNull.field("projects", {
-      type: Project,
+      type: "Project",
       description: "List of projects fetched from github",
       resolve: async (_, __, { prisma }) => {
         return prisma.project.findMany({});
@@ -24,6 +25,13 @@ export const RootQuery = extendType({
             name,
           },
         });
+      },
+    });
+    t.field("categories", {
+      type: Category,
+      description: "List of project categories",
+      resolve: async (_, __, { prisma }) => {
+        return prisma.category.findMany({});
       },
     });
   },
