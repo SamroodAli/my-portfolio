@@ -4,11 +4,11 @@ import { Project } from "./project";
 export const Category = objectType({
   name: "Category",
   definition: (t) => {
-    t.id("id");
-    t.string("name");
-    t.string("description");
-    t.string("createdAt");
-    t.string("updatedAt");
+    t.nonNull.id("id");
+    t.nonNull.string("name");
+    t.nonNull.string("description");
+    t.nonNull.string("createdAt");
+    t.nonNull.string("updatedAt");
     t.nonNull.list.nonNull.field("products", {
       type: Project,
       resolve: async ({ id }, _, { prisma }) => {

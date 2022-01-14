@@ -1,8 +1,9 @@
 import { Category } from "@prisma/client";
 import type { NextPage } from "next";
+import client from "../lib/apollo-client";
+
 import Head from "next/head";
-import { getEnabledCategories } from "trace_events";
-import { prisma } from "../lib/prisma";
+import { queries } from "../graphql";
 
 const Home: NextPage<{ categories: Category[] }> = ({ categories }) => {
   return (
@@ -14,7 +15,7 @@ const Home: NextPage<{ categories: Category[] }> = ({ categories }) => {
         <title>Samrood Ali</title>
       </Head>
 
-      <main>
+      <main className="bg-white h-100">
         <h1>Samrood Ali</h1>
         <p>A passionate Software engineer Full Stack web developer</p>
         {categories.map((category) => (
@@ -28,11 +29,14 @@ const Home: NextPage<{ categories: Category[] }> = ({ categories }) => {
 };
 
 export const getStaticProps = async () => {
-  const categories = await prisma.category.findMany({});
+  const { data } = await client.query<{ categories: Category[] }>({
+    query: queries.GET_CATEGORIES_NAMES,
+  });
 
+  console.log(data);
   return {
     props: {
-      categories,
+      categories: data.categories,
     },
   };
 };

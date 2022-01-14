@@ -70,3 +70,12 @@ export const GET_PROJECT = gql`
     }
   }
 `;
+
+export const GET_CATEGORIES_NAMES = gql`
+  query fetchCategories {
+    categories {
+      id
+      name
+    }
+  }
+`;

@@ -42,7 +42,7 @@ const Projects: NextPage<{ projects: Project[] }> = ({ projects }) => {
 };
 
 export async function getStaticProps() {
-  const { data } = await client.query({
+  const { data } = await client.query<{ projects: Project[] }>({
     query: queries.GET_PROJECTS,
   });
 

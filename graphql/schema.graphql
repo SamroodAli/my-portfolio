@@ -2,6 +2,15 @@
 ### Do not make changes to this file directly
 
 
+type Category {
+  createdAt: String!
+  description: String!
+  id: ID!
+  name: String!
+  products: [Project!]!
+  updatedAt: String!
+}
+
 """One of Samrood's project fetched from github"""
 type Project {
   createdAt: String!
@@ -15,6 +24,9 @@ type Project {
 }
 
 type Query {
+  """List of project categories"""
+  categories: [Category!]!
+
   """One of Samrood's project fetched from github"""
   project(
     """The name of the project"""

@@ -27,11 +27,16 @@ export const RootQuery = extendType({
         });
       },
     });
-    t.field("categories", {
+    t.nonNull.list.nonNull.field("categories", {
       type: Category,
       description: "List of project categories",
       resolve: async (_, __, { prisma }) => {
-        return prisma.category.findMany({});
+        const categories = await prisma.category.findMany({});
+        return categories.map((category) => ({
+          ...category,
+          createdAt: category.createdAt.toISOString(),
+          updatedAt: category.updatedAt.toISOString(),
+        }));
       },
     });
   },

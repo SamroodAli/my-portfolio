@@ -20,7 +20,7 @@ const Layout: React.FC<props> = ({ children }) => {
           </Link>
         </nav>
       </header>
-      <main className="bg-primary">{children}</main>
+      {children}
     </div>
   );
 };
