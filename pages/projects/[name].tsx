@@ -5,6 +5,7 @@ import { queries } from "../../graphql";
 import { langaugeJoiner, languageColors } from "../../lib";
 import { useState } from "react";
 import { Project } from "@prisma/client";
+import { prisma } from "../../lib/prisma";
 
 const Project: NextPage<{ project: Project }> = ({ project }) => {
   const [open, setOpen] = useState(false);
@@ -136,15 +137,21 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { data } = await client.query({
-    query: queries.GET_PROJECT,
-    variables: {
+  if (!params?.name || typeof params?.name !== "string") {
+    return {
+      redirect: "/projects",
+      props: {},
+    };
+  }
+
+  const project = await prisma.project.findUnique({
+    where: {
       name: params?.name,
     },
   });
   return {
     props: {
-      project: data.project,
+      project: project,
     },
   };
 };
