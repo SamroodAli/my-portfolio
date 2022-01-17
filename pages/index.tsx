@@ -2,6 +2,7 @@ import { Category } from "@prisma/client";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { prisma } from "../lib/prisma";
+import Link from "next/link";
 
 const Home: NextPage<{ categories: Category[] }> = ({ categories }) => {
   return (
@@ -18,8 +19,20 @@ const Home: NextPage<{ categories: Category[] }> = ({ categories }) => {
         <p>A passionate Software engineer Full Stack web developer</p>
         {categories.map((category) => (
           <div key={category.id}>
-            <h2>{category.name}</h2>
-            <p>{category.description}</p>
+            <Link
+              key={category.id}
+              href={{
+                pathname: `/category/[name]`,
+                query: {
+                  name: category.name,
+                },
+              }}
+            >
+              <a>
+                <h2>{category.name}</h2>
+                <p>{category.description}</p>
+              </a>
+            </Link>
           </div>
         ))}
       </main>
