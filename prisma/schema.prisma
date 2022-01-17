@@ -49,6 +49,7 @@ model Project {
   languages    languages[]
   technologies technologies[]
   categories   Category[]
+  show         Boolean        @default(false)
 }
 
 model Category {
