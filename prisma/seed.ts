@@ -3,6 +3,7 @@ import { prisma } from "../lib/prisma";
 
 async function main() {
   await prisma.project.deleteMany({});
+  await prisma.category.deleteMany({});
 
   const categories = [
     { name: "Front-end", description: "All my front-end projects" },
@@ -10,6 +11,7 @@ async function main() {
     { name: "FullStack", description: "All my full-stack projects" },
     { name: "DevOps", description: "All my devops projects" },
     { name: "Tools", description: "All the tools or libraries I have built" },
+    { name: "Games", description: "All the games I have built" },
   ];
 
   categories.forEach(
@@ -76,6 +78,18 @@ async function main() {
         languages: node.languages.nodes.map((language: any) => language.name),
       },
     });
+  });
+
+  const pythons = await prisma.project.findMany({
+    where: { name: { contains: "python" } },
+  });
+  console.log(pythons);
+
+  await prisma.project.updateMany({
+    where: { name: { contains: "python" } },
+    data: {
+      show: false,
+    },
   });
 }
 

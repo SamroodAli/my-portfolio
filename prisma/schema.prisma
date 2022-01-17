@@ -49,11 +49,12 @@ model Project {
   languages    languages[]
   technologies technologies[]
   categories   Category[]
-  show         Boolean        @default(false)
+  show         Boolean        @default(true)
+  priority     Int            @default(0)
 }
 
 model Category {
-  id          Int       @id @default(autoincrement())
+  id          String    @id @default(cuid())
   name        String    @unique
   description String
   createdAt   DateTime  @default(now())

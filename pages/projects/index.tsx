@@ -43,7 +43,15 @@ const Projects: NextPage<{ projects: Project[] }> = ({ projects }) => {
 };
 
 export async function getStaticProps() {
-  const projects = await prisma.project.findMany({});
+  const projects = await prisma.project.findMany({
+    where: {
+      show: true,
+    },
+    orderBy: {
+      // createdAt: "desc",
+      priority: "desc",
+    },
+  });
 
   return {
     props: {

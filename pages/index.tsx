@@ -43,6 +43,7 @@ const Home: NextPage<{ categories: Category[] }> = ({ categories }) => {
 export const getStaticProps = async () => {
   const categories = await prisma.category.findMany({
     select: {
+      id: true,
       createdAt: false,
       updatedAt: false,
       name: true,
