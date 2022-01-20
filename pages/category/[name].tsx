@@ -1,6 +1,7 @@
-import { Category, Category, Project } from "@prisma/client";
+import { Category, Project } from "@prisma/client";
 import { GetStaticProps, NextPage } from "next";
 import { prisma } from "../../lib/prisma";
+import Link from "next/link";
 
 const Category: NextPage<{ category: Category; projects: Project[] }> = ({
   category,
@@ -12,7 +13,18 @@ const Category: NextPage<{ category: Category; projects: Project[] }> = ({
       <p>{category.description}</p>
       <ul>
         {projects.map((project) => (
-          <li key={project.id}>{project.name}</li>
+          <Link
+            key={project.id}
+            href={{
+              pathname: `/projects/[name]`,
+              query: {
+                name: project.name,
+              },
+            }}
+            passHref
+          >
+            <li key={project.id}>{project.name}</li>
+          </Link>
         ))}
       </ul>
     </div>
